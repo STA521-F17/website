@@ -43,8 +43,8 @@ see me if you have questions about the pre-requisites.
 
 ### Class meetings:
 
-* Lectures: Monday & Wednesday, 10:05 - 11:20am  Old Chem 116
-* Discussion/Lab Friday, 10:05 - 11:20am  Old Chem 116
+* Lectures: Wednesday & Friday, 10:05 - 11:20am  Perkins 071
+* Discussion/Lab Monday, 10:05 - 11:20am  Old Chem 116
 
 
 * * *
