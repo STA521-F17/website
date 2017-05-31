@@ -7,7 +7,7 @@ Course website is at https://stat.duke.edu/courses/Fall17/sta521/.
 
 
 
-The directory STA521_S17_web contains code for the website that is
+The repository website contains code for the STA521 website that is
 compiled using jekyll.  The colors are changed in the file
 noita/foundation/css/foundation.min.css
 (use firebug to see colors and then edit file to add new ones;

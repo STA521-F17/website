@@ -201,8 +201,9 @@ possible as early in the semester as possible.
 
 #### Missed Exams
 
-There will be no makeup exams.  If a student misses an exam for any
-reason, their score will be based on the previous or future exam.
+There will be no makeup exams.  If a student misses one exam for any
+reason, their score will be imputed based on the previous or future
+exam.  Missing both exams will result in a grade of 0 on the exams.
 
 
 * * *
@@ -236,7 +237,11 @@ team@piazza.com.
 
 Any non-personal questions related to the material covered in class,
 problem sets, labs, projects, etc. should be posted on Piazza.
-Before posting a new question please make sure to check if your question has already been answered. The TAs and myself will be answering questions on the forum daily and all students are expected to answer questions as well. Please use informative titles for your posts.
+Before posting a new question please make sure to check if your
+question has already been answered. The TAs and myself will be
+answering questions on the forum daily and all students are expected
+to answer questions as well as part of the participation grade. Please
+use informative titles for your posts and link to the appropriate topics.
 
 Note that it is more efficient to answer most statistical questions
 ``in person" so make use of Office Hours.
@@ -253,16 +258,23 @@ Students with disabilities who believe they may need accommodations in this clas
 
 Duke University is a community dedicated to scholarship, leadership, and service and to the principles of honesty, fairness, respect, and accountability. Citizens of this community commit to reflect upon and uphold these principles in all academic and non-academic endeavors, and to protect and promote a culture of integrity. Cheating on exams and quizzes, plagiarism on homework assignments and projects, lying about an illness or absence and other forms of academic dishonesty are a breach of trust with classmates and faculty, violate the [Duke Community Standard](http://www.studentaffairs.duke.edu/conduct/resources/dcs), and will not be tolerated. Such incidences will result in a 0 grade for all parties involved as well as being reported to the [Office of Student Conduct](http://www.studentaffairs.duke.edu/conduct). Additionally, there may be penalties to your final class grade. Please review the [Duke's Academic Dishonesty policies](http://www.studentaffairs.duke.edu/conduct/resources/academicdishonesty).
 
-* Use of disallowed materials (textbook, class notes, web references, any form of communication with classmates or other persons, etc.) during exams will not be tolerated. This will result in a 0 on the exam for all students involved, possible failure of the course, and will be reported to the [Office of Student Conduct](http://www.studentaffairs.duke.edu/conduct). If you have any questions about whether something is or is not allowed, ask me beforehand.
+* Use of disallowed materials (textbook, class notes, web references,
+  any form of communication with classmates or other persons, etc.)
+  during exams or take home projects will not be tolerated. This will result in a 0 on the exam for all students involved, possible failure of the course, and will be reported to the [Office of Student Conduct](http://www.studentaffairs.duke.edu/conduct). If you have any questions about whether something is or is not allowed, ask me beforehand.
 
 
 * Reuse and building upon ideas or code are major parts of modern open-source
 software development. As a professional data scientist you will often
-build on the code of others. This class is structured such that all solutions are public. You are encouraged to learn from the work of your peers. I won't hunt down people who are simply copying-and-pasting solutions, because without challenging themselves, they are simply wasting their time and money taking this class.
+build on the code of others. This class is structured such that all
+solutions are public. You are encouraged to learn from the work of
+your peers, however this should not involve simply cuting and pasting.
+I won't hunt down people who are simply copying-and-pasting solutions,
+because without challenging themselves to learn the material, they are simply wasting their time and money taking this class.
 
 However, please respect the terms of use and/or license of any code you find,
 and if you reimplement or duplicate an algorithm or code from
-elsewhere, credit the original source with an inline comment.
+elsewhere, you must credit the original source with an inline
+comment.  Failure to credit may result in a grade of zero. 
 
 
 
