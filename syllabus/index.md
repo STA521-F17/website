@@ -81,8 +81,7 @@ For additional information check out [Videos for
 
 
 {:.right}
-![Data Analysis using Regression and Multilevel/Hierarchical
-Models](../images/GH.bmp)
+![Data Analysis using Regression and Multilevel/HierarchicalModels](../images/GH.bmp)
 
  **Data Analysis using Regression and Multilevel/Hierarchical
 Models** by
@@ -111,8 +110,8 @@ Screencasts from Lectures are available on
 <tr> <td> Homework              </td> <td> 25% </td></tr>
 <tr> <td> Midterm I        </td> <td> 20% </td></tr>
 <tr> <td> Midterm II         </td> <td> 20% </td></tr>
-<tr> <td> Data Analysis Project Part I  </td> <td> 10% </td></tr>
-<tr> <td> Data Analysis Project Part II  </td> <td> 20% </td></tr>
+<tr> <td> Data Analysis Project Part I  </td> <td> 15% </td></tr>
+<tr> <td> Data Analysis Project Part II  </td> <td> 15% </td></tr>
 <tr> <td> Participation        </td> <td> 5% </td></tr>
 
 </table>
@@ -155,9 +154,9 @@ All assignments will be time stamped and late work will be penalized based on th
 
 
 
-* Late work policy for Homework:
-    * next day: lose 50% of points
-    * later than next day: lose all points
+* Missed/Late work policy for Homework:
+    * No Late HW
+    * We will drop the lowest Homework Score
 
 
 * Regrade requests must be made **within 3 days** of when the

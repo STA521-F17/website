@@ -2,9 +2,10 @@
 ---
 title: "Regression Diagnostics"
 author: "Merlise Clyde"
-date: "January 23, 2017"
+date: "September 6, 2017"
 output:
   beamer_presentation: 
+    incremental: true
     includes:
       in_header: macros.tex
 ---
@@ -32,31 +33,36 @@ par(mfrow=c(2,2))
 plot(bodyfat.lm, ask=F)    
 ```
 
+## Features of Plots
+
 * Residuals versus fitted values
-* Normal Quantile: check normality of residuals or look for heavier tails than normal
- where observed quantiles are larger than expected under normality
+* Normal Quantile: check normality of residuals or look for heavier tails than normal where observed quantiles are larger than expected under normality
 * Scale-Location plot:  
  Detect if the spread of the residuals is constant over the range of  fitted values.  (Constant variance with mean)
 * standardized residuals versus leverage with contours of Cook's distance:  shows influential points where points greater than 1 or 4/n are considered influential
 
-Case 39 appears to be influential and have a large standardized residual!
+* Case 39 appears to be influential and have a large standardized residual!
+
 
 ## Hat Matrix
 
 * predictions
-$$\hat{\Y} = \X \hat{\b} = \X (\X^T\X)^{-1}\X^T\Y$$
-$$\H = \X (\X^T\X)^{-1}\X^T$$
+$$
+\begin{aligned}
+\hat{\Y} & = \X \hat{\b} = \X (\X^T\X)^{-1}\X^T\Y \\
+\H & = \X (\X^T\X)^{-1}\X^T
+\end{aligned}
+$$
 *  Hat Matrix or Projection Matrix 
     + idempotent $\H \H = \H$
     + symmetric
-    + leverage values are the diagonal elements $h_{ii}$
+    + leverage values are the diagonal elements $h_{ii}$: $0 \leq h_{ii} \leq 1$
+* Predictions   
 $$\hat{Y}_i = h_{ii} Y_i + \sum_{i \neq j} h_{ij} Y_j$$
-$$ 0 \leq h_{ii} \leq 1$$
-* leverage values near 1 imply $\hat{Y}_i = Y_i$
-* potentially influential
-* measure of how far $x_i$ is from center of data
-
-$$h_{ii} = 1/n + (\x_i - \xbar)^T ((\X- \one \xbar^T) ^T(\X - \one \xbar^T))^{-1}(\x_i - \xbar)$$
+    + leverage values near 1 imply $\hat{Y}_i = Y_i$
+    + potentially influential
+* Leverage: measure of how far $x_i$ is from center of data
+$$ h_{ii} = 1/n + (\x_i - \xbar)^T \left((\X- \one \xbar^T) ^T(\X - \one \xbar^T)\right)^{-1}(\x_i - \xbar)$$
 
 ##  Residual Analysis
 
@@ -70,21 +76,20 @@ $$r_i = e_i/\sqrt{\mbox{\rm var}(e_i)}$$
 
 ##  Predicted Residual
 
-Estimates without Case (i):
-
+* Estimates without Case (i):
 \begin{align*}
   \bhat_{(i)} & =  (\X_{(i)}^T\X_{(i)})^{-1 }\X_{(i)}^T \Y_{(i)}   \\
  & = \bhat - \frac{ (\X^T\X)^{-1} \x_i e_i}{ 1 - h_{ii}}   
 \end{align*}
 
 
-Predicted residual
+* Predicted residual
 $$ e_{(i)} = y_i - \x_i^T \bhat_{(i)} = \frac{e_i}{1 - h_{ii}}$$
  
-with variance
+* variance
 $$\var(e_{(i)}) = \frac{\sigma^2}{1 - h_{ii}}$$
 
-Standardized predicted residual is 
+*Standardized predicted residual is 
 $$\frac{e_{(i)}}{\sqrt{\var(e_{(i)})}}  = \frac{e_i/(1 -
   h_{ii})}{\hat{\sigma}/\sqrt{1 - h_{ii}}} = \frac{e_i}{\hat{\sigma} \sqrt{1 -
     h_{ii}} } 
@@ -92,19 +97,17 @@ $$
 these are the same as standardized residual!
 
 ## Standardized Residuals with External Estimate of $\sigma$ 
+
 * Both the standardized residual and standardized predicted residual use all of the data in estimating $\sigma$
 * if  case $i$ is an outlier, should also exclude it from estimating $\sigma^2$
 *  Estimate $\shat_{(i)}$ using data with case $i$ deleted 
-
 \begin{align*}
 \SSE_{(i)} & =   \SSE - \frac{e_i^2}{1 - h_{ii}}   \\
 \shat_{(i)} = \MSE_{(i)} & =  \frac{\SSE_{(i)}}{n - p - 1}
 \end{align*}
-* Externally Standardized residuals 
 
-$$t_i = \frac{e_{(i)}}{\sqrt{\shat_{(i)}/(1 - h_{ii})}}  =  \frac{y_i
-  - \x_i^T \bhat_{(i)}} {\sqrt{\shat_{(i)}/(1 - h_{ii})}}  =  r_i \left(
-\frac{ n - p - 1}{n - p - r_i^2}\right)^{1/2}$$  
+* Externally Standardized residuals 
+$$ t_i = \frac{e_{(i)}}{\sqrt{\shat_{(i)}/(1 - h_{ii})}}  =  \frac{y_i  - \x_i^T \bhat_{(i)}} {\sqrt{\shat_{(i)}/(1 - h_{ii})}}  =  r_i \left(\frac{ n - p - 1}{n - p - r_i^2}\right)^{1/2}$$  
 
 ## Distribution of Externally Standardized Residuals
 
@@ -112,12 +115,12 @@ $$t_i = \frac{e_{(i)}}{\sqrt{\shat_{(i)}/(1 - h_{ii})}}  =  \frac{y_i  - \x_i^T 
 
 ## Outlier Test  
 
-Regression $\E[Y_i] = \mu_i = \x_i^T \b$
+* Regression $\E[Y_i] = \mu_i = \x_i^T \b$
 
-Hypotheses:
+* Hypotheses:
 
-* H$_0$: $\mu_i = \x_i^T \b$  versus 
-* H$_a$: $\mu_i = \x_i^T\b + \alpha_i$  (different mean)
+    + H$_0$: $\mu_i = \x_i^T \b$  versus 
+    + H$_a$: $\mu_i = \x_i^T\b + \alpha_i$  (different mean)
 
 *  Show that t-test for testing H$_0$: $\alpha_i = 0$ is equal to $t_i$    
 * if p-value is
@@ -127,7 +130,7 @@ $\X \b$  but $\X\b + \delta_i \alpha_i$
 * Extreme case $\mub = \X\b + \I_n \alphav$  all points have their  own mean!    
 
 
-##R Code
+## R Code
 
 ```{r rstudentized, echo=T }
 plot(rstudent(bodyfat.lm) ~ hatvalues(bodyfat.lm),
@@ -151,26 +154,21 @@ pval= 2*(1- pt(max(abs.ti), bodyfat.lm$df - 1))
 
 ##  Bonferonni Correction \& Multiple Testing
 
-$H_{1},\ldots ,H_{n}$ are a family of hypotheses and $p_{1},\ldots ,p_{n}$  their corresponding p-values
+* $H_{1},\ldots ,H_{n}$ are a family of hypotheses and $p_{1},\ldots ,p_{n}$  their corresponding p-values
 
-$n_0$ of the $n$ are true
+* $n_0$ of the $n$ are true
 
-The **familywise error rate** (FWER) is the probability of rejecting at least one true $H_{i}$  (making at least one type I error). 
-
+* The **familywise error rate** (FWER) is the probability of rejecting at least one true $H_{i}$  (making at least one type I error). 
 \begin{align*}
 {\text{FWER}}& =P\left\{\bigcup _{i=1}^{n_{0}}\left(p_{i}\leq {\frac {\alpha }{n}}\right)\right\}\leq \sum _{i=1}^{n_{0}}\left\{P\left(p_{i}\leq {\frac {\alpha }{n}}\right)\right\}\leq n_{0}{\frac {\alpha }{n}}\leq n{\frac {\alpha }{n}}\\ 
 & =\alpha
 \end{align*}
 
-This does not require any assumptions about dependence among the p-values or about how many of the null hypotheses are true.
+* This does not require any assumptions about dependence among the p-values or about how many of the null hypotheses are true.
 
-[link to Wikipedia](https://en.wikipedia.org/wiki/Bonferroni_correction)
+* Link https://en.wikipedia.org/wiki/Bonferroni_correction
 
 ## Bonferroni Correction
-
-* Bonferroni multiplicity adjustment compare each p-value to $\alpha/n$ and reject null (point is not an outlier) if the p-value is less than $\alpha/n$ 
-
-* Start with max absolute value of $t_i$  (or min p-value)
 
 ```{r, echo=T}
 abs.ti = abs(rstudent(bodyfat.lm))
@@ -180,16 +178,20 @@ sum(pval < .05/nrow(bodyfat))
 
 ```
 
+* Bonferroni multiplicity adjustment compare each p-value to $\alpha/n$ and reject null (point is not an outlier) if the p-value is less than $\alpha/n$ 
+
+* Start with max absolute value of $t_i$  (or min p-value)
+
+
 * Case 39 would be considered an outlier based on Bonferroni or other multiplicity adjustments.  no other outliers
 
 ## Cook's Distance 
 
-Measure of influence of case $i$ on predictions
-
+* Measure of influence of case $i$ on predictions
 $$D_i = \frac{\| \Y - \hat{\Y}_{(i)}\|^2}{\hat{\sigma}^2 \, p}$$
 after removing the $i$th case
 
-Easier way to calculate 
+* Easier way to calculate 
 $${\displaystyle D_{i}={\frac {e_{i}^{2}}{\hat{\sigma}^{2}p}}\left[{\frac {h_{ii}}{(1-h_{ii})^{2}}}\right],} 
 $$
 $$D_i = \frac{r_{ii}}{p} \frac{h_{ii}}{1 - h_{ii}}
@@ -224,7 +226,7 @@ predict(bodyfatsub.lm, newdata=bodyfat[39,],
 
 ```
 
-## Residual Checks 
+## Residual Checks without Case 39
 
 ```{r}
 par(mfrow=c(2,2))
@@ -236,7 +238,7 @@ plot(bodyfatsub.lm, ask=FALSE)
 
 
 * Reproducible Research - Document removing a case
-   * Adjust for multiple testing
+   * Adjust for multiple testing!
    * Remove statistically significant outliers if you cannot conform other data entry errors, etc
    * Influential points (not outliers): report analysis with & without
    
@@ -246,4 +248,4 @@ plot(bodyfatsub.lm, ask=FALSE)
 
 * Robust Models   (more later)
 
-Next:  Transformations
+* Next:  Transformations

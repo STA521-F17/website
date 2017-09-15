@@ -2,9 +2,10 @@
 ---
 title: "Models"
 author: "Merlise Clyde"
-date: "January 18, 2017"
+date: "September 1, 2017"
 output:
-  beamer_presentation: default
+  beamer_presentation: 
+      incremental: false
   includes:
     before_body: macros.tex
   ioslides_presentation: null
@@ -18,7 +19,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Problem Setting
 
-* Data: Observe for each case $i$ $(Y_i, X_i)$
+Data: 
+
+* Observe for each case $i$ $(Y_i, X_i)$
 * Response  or dependent variable $Y_i$
 * Predictor(s) or **independent** variable $X_i$
 
@@ -30,7 +33,7 @@ Goals:
 ##  Special cases:  
 * regression (normal $Y$) or additive error model
 * classification (binary or Bernoulli $Y$ where probability $p(Y = 1 \mid X)$ depends on $x$)
-* exponential family models
+* other exponential family models
     + Poisson regression  (counts) 
     + Gamma regression (continous, positive)
 * Survival models    
@@ -40,7 +43,7 @@ Goals:
 $$ Y_i = f(X_i) + \epsilon_i $$
 *  Regression function $E(Y \mid x) = f(x)$ 
 * ideal or optimal predictor of $Y$ given $X = x$
-*  minimizes $E[(Y - g(x))^2 \mid X =x]$ over all functions $g(x)$ at all points $X=x$
+*  minimizes $E[(Y - g(x))^2 \mid X =x]$ over all functions $g(x)$ at all points $X=x$  **Show**
 * for prediction $\epsilon = Y - f(x)$ is _irreducible error_
 as even if we know $f(x)$ there are still errors in predicting $Y$
 +  for any estimator $\hat{f}(x)$ we have
@@ -91,12 +94,12 @@ Rewrite in vectors:
 $$ \mathbf{Y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon} 
 \stackrel{iid}{\sim} N(0,\sigma^2)$$  
 
-+  Estimate parameters $(\beta, \sigma)$ 
-+  interpretation of parameters: $\beta, \sigma$ 
++  Estimate parameters $(\boldsymbol{\beta}, \sigma)$ 
++  interpretation of parameters: $\boldsymbol{\beta}, \sigma$ 
 +  assess model fit --- adequate? good? if inadequate, how? 
 +  move to more complicated model?
 +  predict new (``future'') responses at new $x_{n+1}, \ldots$ 
-+ how much variability does $x$ explain? 
++ how much variability does $X$ explain? 
 + how important is $X$ is predicting $Y$
 
 ## Body Fat Data
@@ -109,12 +112,15 @@ $$ \mathbf{Y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon}
 * Understand how changing one measurement may lead to changes in Bodyfat
 
 ## Data
-```{r bfdata, echo=T}
+
+\small
+```{r bfdata, echo=T, out.width=5}
 library(BAS)
 data(bodyfat)  #from BAS   help(bodyfat)
 dim(bodyfat)
 summary(bodyfat)  # anything strange ?
 ```
+
 
 ## Pairs Plots
 
@@ -127,13 +133,11 @@ ggpairs(bodyfat, columns=c(8,3,5,2))
 ## Ordinary Least Squares
 
 * OLS estimates of parameters $\beta_0$ and $\beta$ minimize sum of squared errors
-$$ \sum_{i=1}^n (Y_i - (\beta_0 + X_i \beta_1))^2$$
-
-$$L(\boldsymbol{\beta}) = (\mathbf{Y} - \mathbf{X} \boldsymbol{\beta})^T(\mathbf{Y} - \mathbf{X} \boldsymbol{\beta})$$
+    + $$ \sum_{i=1}^n (Y_i - (\beta_0 + X_i \beta_1))^2$$
+    +  $$L(\boldsymbol{\beta}) = (\mathbf{Y} - \mathbf{X} \boldsymbol{\beta})^T(\mathbf{Y} - \mathbf{X} \boldsymbol{\beta})$$
 
 * OLS estimate of $\boldsymbol{\beta}$
-
-$$\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1} \mathbf{X}^T\mathbf{Y}
+    + $$\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1} \mathbf{X}^T\mathbf{Y}
 $$
 
 * Ad Hoc
@@ -152,6 +156,7 @@ $$e_i = Y_i - \hat{Y}_i = \hat{\epsilon}_i$$
 
 ##  Fitting Models in `R`
 
+\small
 ```{r lm, echo=TRUE}
 bodyfat.lm = lm(Bodyfat ~ Abdomen, data=bodyfat)
 summary(bodyfat.lm)   #summary of regression output
@@ -173,7 +178,7 @@ plot(bodyfat.lm, ask=F)
  Detect if the spread of the residuals is constant over the range of  fitted values.  (Constant variance with mean)
 * standardized residuals versus leverage with contours of Cook's distance:  shows influential points where points greater than 1 or 4/n are considered influential
 
-Case 39 appears to be influential!
+* Case 39 appears to be influential!
 
 ## Hat Matrix
 

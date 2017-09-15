@@ -29,12 +29,9 @@ see me if you have questions about the pre-requisites.
 
 |------------+---------------------+---------------------|
 |Professor   | [Dr. Merlise Clyde ](http://stat.duke.edu/~clyde) | [clyde@duke.edu](mailto:clyde@duke.edu)
-|:-----------|:--------------------|:-------------------|
-|TA         |[TBA](http://stat.duke.edu/people/tba)   | [tba@duke.edu](mailto:tba@duke.edu) 
-|:-----------|:--------------------|:-------------------|
-|TA         |[TBA](http://stat.duke.edu/people/tba)   | [tba@duke.edu](mailto:tba@duke.edu) 
-|:-----------|:--------------------|:-------------------|
-|TA         |[TBA](http://stat.duke.edu/people/tba)   | [tba@duke.edu](mailto:tba@duke.edu) 
+|:--------------|:-----------------------|:----------------------|
+|TA  |[Eric Wang](http://stat.duke.edu/people/ye-wang/) | [eric.ye.wang@duke.edu@duke.edu](mailto:tba@duke.edu) |
+|TA   |[Liyu Gong](http://stat.duke.edu/people/liyu-gong) | [liyu.gong@duke.edu](mailto:tba@duke.edu) |
 |------------+--------------------+-------------------|
 
 
@@ -53,14 +50,10 @@ see me if you have questions about the pre-requisites.
 
 |-----------+--------+-----------|
 | Who       |  Where | When      
-|:-----------|:--------|:-----------|
-| Professor Clyde |  Old Chemistry 214A |  TBA, after class Mon & Wed 11:30-12.|
-|:-----------|:--------|:-----------|
-| TA |  Old Chemistry 211A |  TBA |
-|:-----------|:--------|:-----------|
-| TA |  Old Chemistry 211A  | TBA  |
-|:-----------|:--------|:-----------|
-|TA | Old Chemistry 211A | TBA|
+|:----------------|:--------|:-----------|
+| Professor Clyde |  Old Chemistry 214A |  after class Wed & Fri 11:30-12 and 2-3 pm|
+| Eric Wang |  Old Chemistry 211A |  Thur 9-10 am |
+| Liyu Gong |  Old Chemistry 211A  | Tues 4:30-6:30 pm |
 |-----------+--------+-----------|
 
 * * *

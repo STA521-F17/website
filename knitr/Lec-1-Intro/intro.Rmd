@@ -2,9 +2,11 @@
 ---
 title: "Introduction to Modern Regression and Predictive Modeling"
 author: "Merlise Clyde"
-date: "1/11/2017"
+date: "8/30/2017"
 output:
-  beamer_presentation: default
+  beamer_presentation: 
+      incremental: true
+      fig_caption: false
   ioslides_presentation: null
 notes: ''
 link: yes
@@ -19,23 +21,24 @@ layout: page
  
  * Instructor:  Merlise Clyde
  * TAs:
-     + Xin (Julia) Xu
-     +  Victor Peña 
+     + Eric Wang
+     + Liyu Gong
  * Course Websites:  
     + Main  http://stat.duke.edu/courses/Spring17/sta521
      + Sakai https://sakai.duke.edu/portal/site/sta521-s17
-     + Github  https://github.com/STA521-S17
+     + Github  https://github.com/STA521-F17
 
 ## Grading
 
 
 Component                      Percentage
 -----------------------------  ----------
- Participation                  10%
- Homework                       30%
+ Participation                  5%
+ Homework                       25%
  Midterm 1                      20%
  Midterm 2                      20%
- Final Data Analysis Project    20%
+ Data Analysis Part I           15%
+ Data Analysis Part II          15%
 
 ## Groups
 
@@ -51,6 +54,7 @@ Component                      Percentage
     + Everyone is expected to contribute equally
     + Everyone is expected to understand *all* code turned in
     + Individual contribution evaluated by peer assessment
+    + You may help each other, but submitted work must be your own
 
 
 ## Policies {.smaller}
@@ -64,15 +68,14 @@ Component                      Percentage
 * Coding Homework
     + Group based, everyone is equally responsible
 * Late Homework Policy:
-    + One day  -50%
-    + Two or More 0%
+    + No Late HW
+    + Drop the lowest score
 * 2 In-Class Midterms
 
 
 
 ## Reproducible Research / Data Analysis
 
-* Unix shell
 
 * R + RStudio + JAGS
 
@@ -90,7 +93,7 @@ Component                      Percentage
     + [JAGS](http://mcmc-jags.sourceforge.net)
 * [Try R Code School](https://www.codeschool.com/courses/try-r)     if you are new to R
 * Create a [github account](http://github.com) (if you do not have one already)
-* Complete the course survey (email link tonight)
+* Complete the course survey (email link next week)
 
 ##  Data Science
 
@@ -106,25 +109,28 @@ See (Bin Yu's IMS Presidential Address 2014)[http://bulletin.imstat.org/2014/10/
 * Goals:
     + learn a model to **predict** $Y_i$ given $X_i$ at new inputs $X_i$  
     + understand relationship between $X_i$ and $Y_i$  (**inference**) 
+    + $E[Y_i] = f(X_i)$  learn regression function $f(X)$
+    + Model Based Statistical Learning
     
 ## Course Expectations
 
-*  Expect to deal with simple to increasingly messy data  (real world)
+* Expect to deal with simple to increasingly messy data  (real world)
 * Writing `R` and `JAGS` code that is reproducible
-* self-documented using `Rmarkdown`
+* self-documented code/solutions using `Rmarkdown`
 * use of version control (git) for team based reproducible coding
+* interpretation of results for non-statisticians
 
 ## Course Topics
-*  Visualization and Exploratory Data Analysis
-  * Linear Regression 
-  * Diagnostics and model checking
-  * Predictive Distributions
+* Visualization and Exploratory Data Analysis
+* Linear Regression 
+* Diagnostics and model checking
+* Predictive Distributions
 * Model Selection including variable selection, variable transformations, distribution choices 
 * Model Uncertainty (Bayesian Model Averaging and other Ensemble Methods)
 * Bayesian Shrinkage and Penalized Likelihood Estimation (Ridge Regression/ LASSO/ Horseshoe )
-* Robust Estimation
-* Classification  and Tree Based Models
-* Nonparametric Regression Methods 
+* Robust Estimation 
+* Classification  and Regression Trees, Random Forests, Boosting, Bayesian Additive Regression Trees
+* Other Topics: Nonparametric Regression, Time Series, Neural Networks  
 
 ##  Themes
 
@@ -136,16 +142,34 @@ See (Bin Yu's IMS Presidential Address 2014)[http://bulletin.imstat.org/2014/10/
 * understanding structure of data (relationships)
 * Bayesian versus Frequentist ?
 
-Tradeoffs...
+## Tradeoffs...
 
-*All models are wrong, but some may be useful* George Box
+![](https://larspsyll.files.wordpress.com/2015/09/quote-all-models-are-wrong-but-some-are-useful-george-e-p-box-53-42-27.jpg)
+
+
+
+##  Frequenstist & Bayes 
+
+* Likelihood Based inference
+     + Sampling model $$Y_i \sim f(y_i \mid \theta)$$
+     + Likelihood 
+     $$L(\theta) \propto \prod_i f(Y_i \mid \theta)$$
+     + MLE of $\theta$
+* Bayes
+     + prior distribution $p(\theta)$ describes prior uncertainty about $\theta$
+     + posterior distribution $$p(\theta \mid data) \propto L(\theta)p(\theta)$$
+     + uncertainty after seeing data
+     
+##  Got Data?
+
+![](https://media.licdn.com/media-proxy/ext?w=800&h=800&hash=sfmK8PW%2BTbPHupf8ExHOszMCVRg%3D&ora=1%2CaFBCTXdkRmpGL2lvQUFBPQ%2CxAVta9Er0Vinkhwfjw8177yE41y87UNCVordEGXyD3u0qYrdf3a_KpLcKrbzuVoeKiQclABkefL5FjPnD8G4I47rKY8ngsPmJo24ZxUBbFI8lWxI)
 
 ## Philosophy
 
 * for many problems Frequentist and Bayesian methods will give
   similar answers (more a matter of taste in interpretation)
   * For small problems, Bayesian methods allow us to incorporate
-    prior information which provides better calibrated answers
+    prior information which provides better calibrated answers and better measure of uncertainty
   * for problems with complex designs and/or missing data Bayesian
     methods are often better easier to implement (do not need to rely
     on asymptotics)
@@ -156,7 +180,7 @@ Tradeoffs...
   *data-sense*
 * Bayesian methods sit on top of Frequentist Likelihood
 
-Important to understand advantages and problems of each perspective!
+* Important to understand advantages and problems of each perspective!
 
 ##  Statistical and Machine Learning ?
 ![](https://imgs.xkcd.com/comics/machine_learning.png)
@@ -165,21 +189,12 @@ Important to understand advantages and problems of each perspective!
 
 * Binary Outcome (Cancer/Control)
   * 17 established SNPS (genetic markers)
-  * other risk factors (age, family history, oral contraceptive use, number of pregnancies ...)
-* Case - Control design
+  * other risk factors (age, family history, oral contraceptive use, number of pregnancies, aspirin, ...)
+* Case - Control design  
 * variability across study sites  (random effects)
 * 80\% subjects had at least one variable with missing data
 * Missing at random versus missing not-at-random
 * Focus is on prediction, but still need an interpretable model
   
-EDA, Model Building, and Predictive Checking crucial
+* EDA, Model Building, and Predictive Checking crucial!
 
-## Lab Friday
-getting started with 
-
-* github
-* Rstudio
-* teams 
-* data
-
-Complete Survey - Background, Hopes and Expectations!

@@ -2,11 +2,12 @@
 ---
 title: "Transformations"
 author: "Merlise Clyde"
-date: "Readings: Gelman & Hill Ch 2-4"
+date: "Readings: Gelman & Hill Ch 2-4, ALR 7-9"
 output: 
    beamer_presentation:
          includes:
             in_header: macros.tex
+         increment: true    
 ---
 
 ```{r setup, include=FALSE}
@@ -21,16 +22,16 @@ $$ Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \ldots \beta_{p} X_{ip} + \
 -  Model Linear in $X_j$  but $X_j$ could be a transformation of the original variables
 -  $\epsilon_i \sim N(0, \sigma^2)$
 -  $Y_i \ind \N(\beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + \ldots \beta_{p} X_{ip}, \sigma^2)$
-- correct mean function
-- constant variance
-- independent errors
-- Normal errors
+    - correct mean function
+    - constant variance
+    - independent Normal errors
+
 
 ## Animals
 
-Read in Animal data from MASS.  The data set contains measurements on body weight and brain weight.
+Read in Animal data from MASS.  The data set contains measurements on body weight (kg) and brain weight (g) on 28 animals.
 
-Let's try to predict brain weight (size) from body weight.
+Let's try to predict brain weight from body weight.
 
 ```{r data, echo=T, warnings=FALSE, message=FALSE}
 library(MASS)
@@ -45,25 +46,56 @@ par(mfrow=c(2,2))
 plot(brain.lm)
 ```
 
+##  Outliers 
 
-##  Leverage plot
+* Issues with multiple comparisons if we compare each p-value to $\alpha = 0.05$
 
-```{r, fig.width=6}
-plot(hatvalues(brain.lm), type="h")
-```
+* Bonferroni compares p-values to $\alpha/n$
 
-_Energetic students: how I should plot with ggplot?_
+* Other corrections for False Discoveries possible (STA 532)
 
-##  Outliers and Influential Points
+##  Bonferonni Correction \& Multiple Testing
 
-Flag outliers after Bonferroni Correction
+* $H_{1},\ldots ,H_{n}$ are a family of hypotheses and $p_{1},\ldots ,p_{n}$  their corresponding p-values
+
+* $n_0$ of the $n$ are true
+
+* The **familywise error rate** (FWER) is the probability of rejecting at least one true $H_{i}$  (making at least one type I error). 
+\begin{align*}
+{\text{FWER}}& =P\left\{\bigcup _{i=1}^{n_{0}}\left(p_{i}\leq {\frac {\alpha }{n}}\right)\right\}\leq \sum _{i=1}^{n_{0}}\left\{P\left(p_{i}\leq {\frac {\alpha }{n}}\right)\right\}\leq n_{0}{\frac {\alpha }{n}}\leq n{\frac {\alpha }{n}}\\ 
+& =\alpha
+\end{align*}
+
+* This does not require any assumptions about dependence among the p-values or about how many of the null hypotheses are true.
+
+* Link https://en.wikipedia.org/wiki/Bonferroni_correction
+
+
+##  Outliers 
+
+
+
+* Flag outliers after Bonferroni Correction $p_i < \alpha/n$
 
 ```{r, echo=T}
 pval = 2*(1 - pt(abs(rstudent(brain.lm)), brain.lm$df -1)) 
 rownames(Animals)[pval <  .05/nrow(Animals)]
 ```
 
-Cook's Distance > 1
+## Cook's Distance 
+
+Measure of influence of case $i$ on predictions
+$$D_i = \frac{\| \Y - \hat{\Y}_{(i)}\|^2}{\hat{\sigma}^2 \, p}$$
+after removing the $i$th case \pause
+
+Easier way to calculate 
+$${\displaystyle D_{i}={\frac {e_{i}^{2}}{\hat{\sigma}^{2}p}}\left[{\frac {h_{ii}}{(1-h_{ii})^{2}}}\right],} 
+$$ \pause
+$$D_i = \frac{r_{ii}}{p} \frac{h_{ii}}{1 - h_{ii}}
+$$
+\pause
+
+ Flag cases where $D_i > 1$ or $D_i > 4/n$
 ```{r, echo=T}
 rownames(Animals)[cooks.distance(brain.lm) > 1]
 ```
@@ -115,19 +147,23 @@ par(mfrow=c(2,2)); plot(brain5.lm)
 library(ggplot2)
 ggplot(Animals, aes(x=body, y=brain)) +
   geom_point() +
-  xlab("Body Weight") + ylab("Brain Weight") 
+  xlab("Body Weight (kg)") + ylab("Brain Weight (g)") 
 ```
 
 
 ## Log Transform
 
-```{r, warnings=FALSE, message=FALSE, fig.height=5}
-par(mfrow=c(1,2))
-hist(Animals$body, xlab="Body Weight", main="")
-hist(log(Animals$body), xlab="log(Body Weight)", main="")
+```{r, warnings=FALSE, message=FALSE, fig.height=3, fig.width=6}
+require(gridExtra)
+plot1 =ggplot(data=Animals, aes(x=body)) + geom_histogram() + xlab("Body Weight")
+plot2=ggplot(data=Animals, aes(x=log(body))) + 
+      geom_histogram(breaks=seq(min(log(Animals$body)), max(log(Animals$body)), length = 10)) + 
+      xlab("log(Body Weight)")
+grid.arrange(plot1, plot2, ncol=2)
 ```
 
-_Who can reproduce this slide using ggplot?  Tell me how on Piazza! Even better make a pull request!_
+
+
 
 ## Plot of Transformed Data
 
@@ -208,7 +244,8 @@ boxcox(braintransX.lm)
 - if the dynamic range of $Y$ or $X$ is less than 1 or 10
 (ie max/min) then transformation may have little effect
 - transformations such as logs may still be useful for interpretability
-- outliers that are not influential may still 
+- outliers that are not influential may still affect the estimate of $\sigma$ and width of confidence/prediction intervals.
+- Reproducibility - describe steps and decisions
 
 ## Review of Last Class
 
